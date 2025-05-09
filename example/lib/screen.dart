@@ -5,24 +5,11 @@ class Screen extends StatelessWidget {
   final String name;
   final Color color;
 
-  const Screen(this.name, this.color);
+  const Screen(this.name, this.color, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: color,
-        child: Center(
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
+    return Scaffold(body: Container(color: color, child: Center(child: Text(name, style: TextStyle(fontSize: 20, color: Colors.white)))));
   }
 }
 
@@ -31,7 +18,7 @@ class ScreenWithDirectionButtons extends StatelessWidget {
   final Color color;
   final InstagramSwipeController controller;
 
-  const ScreenWithDirectionButtons(this.name, this.color, this.controller);
+  const ScreenWithDirectionButtons(this.name, this.color, this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,33 +29,27 @@ class ScreenWithDirectionButtons extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-              ),
+              Text(name, style: TextStyle(fontSize: 20, color: Colors.white)),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                      child: Text('Previous'),
-                      onPressed: (){
-                        controller.previousPage();
-                      }
+                    child: Text('Previous'),
+                    onPressed: () {
+                      controller.previousPage();
+                    },
                   ),
                   ElevatedButton(
-                      child: Text('Next'),
-                      onPressed: (){
-                        controller.nextPage();
-                      }
-                  )
+                    child: Text('Next'),
+                    onPressed: () {
+                      controller.nextPage();
+                    },
+                  ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ),
       ),
     );

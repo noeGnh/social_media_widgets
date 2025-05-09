@@ -21,12 +21,9 @@ class SnapchatDismiss extends StatefulWidget {
   _SnapchatDismissState createState() => _SnapchatDismissState();
 }
 
-class _SnapchatDismissState extends State<SnapchatDismiss>
-    with TickerProviderStateMixin {
+class _SnapchatDismissState extends State<SnapchatDismiss> with TickerProviderStateMixin {
   double? startPosition, dragHeight;
-  bool isDragging = false,
-      isCompleted = false,
-      greaterThanDismissHeight = false;
+  bool isDragging = false, isCompleted = false, greaterThanDismissHeight = false;
   late AnimationController _animationController;
   late Animation _animation;
 
@@ -34,8 +31,7 @@ class _SnapchatDismissState extends State<SnapchatDismiss>
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 350));
     _animation = Tween().animate(_animationController);
   }
 
@@ -57,8 +53,7 @@ class _SnapchatDismissState extends State<SnapchatDismiss>
   void _complete(Size screenSize) {
     isCompleted = true;
     double end = screenSize.height / 2 + widget.additionalRadius / 2 - 25;
-    _animation =
-        Tween(begin: dragHeight, end: end).animate(_animationController);
+    _animation = Tween(begin: dragHeight, end: end).animate(_animationController);
     _animationController.forward();
 
     _animationController.addListener(() {
@@ -88,9 +83,7 @@ class _SnapchatDismissState extends State<SnapchatDismiss>
           dragHeight = details.globalPosition.dy - startPosition!;
           setState(() {});
           greaterThanDismissHeight = dragHeight! > widget.dismissHeight;
-          if (greaterThanDismissHeight &&
-              widget.closeAfterDragEnds == false &&
-              isCompleted == false) {
+          if (greaterThanDismissHeight && widget.closeAfterDragEnds == false && isCompleted == false) {
             _complete(screenSize);
             return;
           }
@@ -126,9 +119,7 @@ class _SnapchatDismissState extends State<SnapchatDismiss>
       child: Stack(
         children: <Widget>[
           Container(
-            color: Colors.black.withOpacity(
-                (1.0 - (0.8 / (screenSize.height)) * (dragHeight ?? 1.0) * 1.5)
-                    .clamp(0.0, 1.0)),
+            color: Colors.black.withValues(alpha: (1.0 - (0.8 / (screenSize.height)) * (dragHeight ?? 1.0) * 1.5).clamp(0.0, 1.0)),
           ),
           AnimatedBuilder(
             animation: _animation,
